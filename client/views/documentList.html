@@ -1,0 +1,19 @@
+<template name="documentList">
+
+  <a href="/document/add" class="btn btn-primary">New document</a>
+  <hr>
+  <table class="table table-bordered">
+    {{#each documents}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{description}}</td>
+        <td>{{host}}</td>
+        <td>
+          <a href="/document/{{_id}}/edit" class="btn btn-xs btn-default">edit</a>
+          <a href="/document/{{_id}}/preview" class="btn btn-xs btn-info">preview</a>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
+
+</template>

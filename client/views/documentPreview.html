@@ -1,0 +1,85 @@
+<template name="documentPreview">
+
+{{#with document}}
+<div class="row">
+  <div class="col-md-6">
+    <pre>
+{{> documentMarkdown this}}
+    </pre>
+  </div>
+  <div class="col-md-6">
+      {{#markdown}}
+{{> documentMarkdown this}}
+      {{/markdown}}
+  </div>
+</div>
+{{/with}}
+
+</template>
+
+<template name="documentMarkdown">
+
+
+# {{ title }}
+
+
+{{ description }}
+
+EndPoint: `{{host}}`
+
+{{> documentMarkdownResources this}}
+</template>
+
+<template name="documentMarkdownResources">
+{{#each resources}}
+
+## {{name}}
+  
+{{description}}
+
+{{> documentMarkdownActions this}}
+
+{{/each}}  
+</template>
+
+<template name="documentMarkdownActions">
+{{#each actions}}
+### {{name}}
+
+```
+{{method}} {{../uri}}
+```
+
+{{> documentMarkdownActionDetail this}}
+
+{{/each}} <!-- #each actions -->
+</template>
+
+
+<template name="documentMarkdownActionDetail">
+
+{{#if request}}
+
+#### Request
+##### Params
+name | type | required | description
+:--- | :--- | :------- | :----------
+{{#each request}} {{#each params}}{{name}} | {{type}} | {{required}} | {{description}}
+{{/each}} {{/each}}
+
+{{/if}}
+
+#### Response
+
+{{#each response}}
+##### Header
+
+`{{header}}`
+
+##### Body
+```
+{{body}}
+```
+{{/each}}
+
+</template>
